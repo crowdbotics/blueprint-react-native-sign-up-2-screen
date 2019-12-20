@@ -42,24 +42,24 @@ sed -i "s/${EXT_POINT_2}/&\n${DATA_2}/g" $BASE_PATH/src/navigator/mainNavigator.
 echo ">> insert 3"
 sed -i "s/${EXT_POINT_3}/&\n${DATA_3}/g" $BASE_PATH/src/navigator/mainNavigator.js
 
-EXT_POINT_5="@BlueprintReduxImportInsertion"
-EXT_POINT_6="@BlueprintReduxCombineInsertion"
-DATA_5="import { ${BLUEPRINT}Reducer } from '..\/features\/${BLUEPRINT}\/redux\/reducers'"
-DATA_6="${BLUEPRINT}: ${BLUEPRINT}Reducer,"
+# EXT_POINT_5="@BlueprintReduxImportInsertion"
+# EXT_POINT_6="@BlueprintReduxCombineInsertion"
+# DATA_5="import { ${BLUEPRINT}Reducer } from '..\/features\/${BLUEPRINT}\/redux\/reducers'"
+# DATA_6="${BLUEPRINT}: ${BLUEPRINT}Reducer,"
 
-echo ">> insert 5"
-sed -i "s/${EXT_POINT_5}/&\n${DATA_5}/g" $BASE_PATH/src/redux/mainReducer.js
+# echo ">> insert 5"
+# sed -i "s/${EXT_POINT_5}/&\n${DATA_5}/g" $BASE_PATH/src/redux/mainReducer.js
 
-echo ">> insert 6"
-sed -i "s/${EXT_POINT_6}/&\n${DATA_6}/g" $BASE_PATH/src/redux/mainReducer.js
+# echo ">> insert 6"
+# sed -i "s/${EXT_POINT_6}/&\n${DATA_6}/g" $BASE_PATH/src/redux/mainReducer.js
 
-EXT_POINT_7="@BlueprintReduxImportInsertion"
-EXT_POINT_8="@BlueprintReduxCombineInsertion"
-DATA_7="import ${BLUEPRINT}Saga from '..\/features\/Dashboard1Blueprint\/redux\/sagas'"
-DATA_8="${BLUEPRINT}Saga,"
+# EXT_POINT_7="@BlueprintReduxImportInsertion"
+# EXT_POINT_8="@BlueprintReduxCombineInsertion"
+# DATA_7="import ${BLUEPRINT}Saga from '..\/features\/Dashboard1Blueprint\/redux\/sagas'"
+# DATA_8="${BLUEPRINT}Saga,"
 
-echo ">> insert 7"
-sed -i "s/${EXT_POINT_7}/&\n${DATA_7}/g" $BASE_PATH/src/redux/mainSaga.js
+# echo ">> insert 7"
+# sed -i "s/${EXT_POINT_7}/&\n${DATA_7}/g" $BASE_PATH/src/redux/mainSaga.js
 
-echo ">> insert 8"
-sed -i "s/${EXT_POINT_8}/&\n${DATA_8}/g" $BASE_PATH/src/redux/mainSaga.js
+# echo ">> insert 8"
+# sed -i "s/${EXT_POINT_8}/&\n${DATA_8}/g" $BASE_PATH/src/redux/mainSaga.js
