@@ -5,7 +5,8 @@ import {
   ThemedComponentProps,
   ThemeType,
   withStyles,
-  Icon
+  Icon,
+  Text
 } from 'react-native-ui-kitten';
 import {Button} from 'react-native-ui-kitten';
 import {SignUpForm2} from '../../components/auth';
@@ -13,14 +14,32 @@ import {ProfilePhoto} from '../../components/social';
 import {ScrollableAvoidKeyboard, textStyle} from '../../components/common';
 // import { PlusIconFill } from '@src/assets/icons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {EmailValidator, PasswordValidator} from '../../core/validators';
 
 class SignUp2Component extends React.Component {
+
+
   state = {
-    formData: undefined,
+    username: undefined,
+    email: undefined,
+    password: undefined,
+    termsAccepted: false,
   };
 
-  onFormDataChange = formData => {
-    this.setState({formData});
+  onTermsValueChange = termsAccepted => {
+    this.setState({termsAccepted});
+  };
+
+  onUsernameInputTextChange = username => {
+    this.setState({username});
+  };
+
+  onEmailInputTextChange = email => {
+    this.setState({email});
+  };
+
+  onPasswordInputValidationResult = password => {
+    this.setState({password});
   };
 
   onPhotoButtonPress = () => {
@@ -32,7 +51,11 @@ class SignUp2Component extends React.Component {
   };
 
   onSignUpButtonPress = () => {
-    this.props.onSignUpPress(this.state.formData);
+    // this.props.onSignUpPress(this.state.formData);
+    this.props.onSignUpPress({
+      email: this.state.email,
+      password: this.state.password,
+    });
   };
 
   renderPhotoButtonIcon = style => {
@@ -54,6 +77,18 @@ class SignUp2Component extends React.Component {
     );
   };
 
+  validator() {
+ 
+     const {username, email, password, termsAccepted} = this.state;
+ 
+     return (
+       email !== undefined &&
+       EmailValidator(this.state.email) &&
+       password !== undefined &&
+       termsAccepted && PasswordValidator(password) && username !== undefined
+     );
+   }
+
   render() {
     const {themedStyle} = this.props;
 
@@ -67,16 +102,30 @@ class SignUp2Component extends React.Component {
             button={this.renderPhotoButton}
           />
         </View>
+        {this.props.errorMsg && (
+          <View style={themedStyle.msgContainer}>
+            <Text style={{color: 'red'}}>{this.props.errorMsg}</Text>
+          </View>
+        )}
+
         <SignUpForm2
           style={themedStyle.formContainer}
-          onDataChange={this.onFormDataChange}
+          username={this.state.username}
+          email={this.state.email}
+          password={this.state.password}
+          termsAccepted={this.state.termsAccepted}
+          onUsernameInputTextChange={this.onUsernameInputTextChange}
+          onEmailInputTextChange={this.onEmailInputTextChange}
+          onPasswordInputValidationResult={this.onPasswordInputValidationResult}
+          onTermsValueChange={this.onTermsValueChange}
         />
         <Button
           style={themedStyle.signUpButton}
           //textStyle={textStyle.button}
           size="giant"
-          //disabled={!this.state.formData}
-          //onPress={this.onSignUpButtonPress}
+          disabled={!this.validator()}
+          onPress={this.onSignUpButtonPress}
+          
           >
           SIGN UP
         </Button>
@@ -106,7 +155,7 @@ export const SignUp2 = withStyles(SignUp2Component, theme => ({
   },
   formContainer: {
     flex: 1,
-    marginTop: 32,
+    marginTop: 15,
     paddingHorizontal: 16,
   },
   photo: {
@@ -139,5 +188,13 @@ export const SignUp2 = withStyles(SignUp2Component, theme => ({
   signInText: {
     color: theme['text-hint-color'],
     ...textStyle.subtitle,
+  },
+  msgContainer: {
+    borderWidth: 2,
+    borderColor: '#e3e3e3',
+    padding: 10,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));

@@ -21,38 +21,10 @@ import {
 } from '../../../core/validators';
 
 class SignUpForm2Component extends React.Component {
-  state = {
-    username: undefined,
-    email: undefined,
-    password: undefined,
-    termsAccepted: false,
-  };
+  
 
-  onTermsValueChange = termsAccepted => {
-    this.setState({termsAccepted});
-  };
-
-  onUsernameInputTextChange = username => {
-    this.setState({username});
-  };
-
-  onEmailInputTextChange = email => {
-    this.setState({email});
-  };
-
-  onPasswordInputValidationResult = password => {
-    this.setState({password});
-  };
-
-  isValid = value => {
-    const {username, password, email, termsAccepted} = value;
-
-    return (
-      username !== undefined &&
-      password !== undefined &&
-      email !== undefined &&
-      termsAccepted
-    );
+  getStatus = valid => {
+    return valid ? 'success' : 'danger';
   };
 
   renderEyeOffIconFill = style => {
@@ -84,6 +56,7 @@ class SignUpForm2Component extends React.Component {
       onUsernameInputTextChange,
       onEmailInputTextChange,
       onPasswordInputValidationResult,
+      onTermsValueChange,
       ...restProps
     } = this.props;
 
@@ -109,6 +82,7 @@ class SignUpForm2Component extends React.Component {
             status={email && this.getStatus(EmailValidator(email))}
             value={email}
             onChangeText={onEmailInputTextChange}
+            autoCapitalize="none"
           />
           <Input
           style={themedStyle.passwordInput}
@@ -125,8 +99,8 @@ class SignUpForm2Component extends React.Component {
           <CheckBox
             style={themedStyle.termsCheckBox}
             textStyle={themedStyle.termsCheckBoxText}
-            checked={this.state.termsAccepted}
-            onChange={this.onTermsValueChange}
+            checked={termsAccepted}
+            onChange={onTermsValueChange}
             text="I read and agree to Terms & Conditions"
           />
         </View>
